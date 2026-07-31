@@ -82,12 +82,46 @@
         </div>
 
 
+        {% if user.is_authenticated %}
+
+
+<span class="text-light me-3">
+    Welcome {{ user.first_name }}
+</span>
+
+
+        {% if user.is_staff %}
+
         <a
-            class="btn btn-outline-light btn-sm"
+            class="btn btn-outline-light btn-sm me-2"
             href="/admin/"
         >
             Admin
         </a>
+
+        {% endif %}
+
+
+        <a
+            class="btn btn-danger btn-sm"
+            href="/logout/"
+        >
+            Logout
+        </a>
+
+
+        {% else %}
+
+
+        <a
+            class="btn btn-outline-light btn-sm"
+            href="/login/"
+        >
+            Login
+        </a>
+
+
+        {% endif %}
 
 
     </div>

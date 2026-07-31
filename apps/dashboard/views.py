@@ -1,29 +1,12 @@
 from django.shortcuts import render
-
+from django.contrib.auth.decorators import login_required
 from apps.employees.models import Employee
 from apps.projects.models import Project
 from apps.tasks.models import Task
 from django.utils import timezone
 
 
-def dashboard(request):
-
-    context = {
-        "employees_count": Employee.objects.count(),
-        "projects_count": Project.objects.count(),
-        "tasks_count": Task.objects.count(),
-        "completed_tasks": Task.objects.filter(
-            status=Task.Status.COMPLETED
-        ).count(),
-    }
-
-    return render(
-        request,
-        "dashboard/index.html",
-        context
-    )
-
-
+@login_required
 def dashboard(request):
 
     context = {
