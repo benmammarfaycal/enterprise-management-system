@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<h1 class="mb-4">
+    Enterprise Dashboard
+</h1>
+
+<div class="container mt-5">
+
+    <div class="row">
+
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Employees
+                    </h5>
+
+                    <h2>
+                        {{ employees_count }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Projects
+                    </h5>
+
+                    <h2>
+                        {{ projects_count }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Tasks
+                    </h5>
+
+                    <h2>
+                        {{ tasks_count }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Completed
+                    </h5>
+
+                    <h2>
+                        {{ completed_tasks }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+<div class="row mt-5">
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    Recent Projects
+                </h5>
+
+
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for project in projects %}
+
+                        <tr>
+
+                            <td>
+                                {{ project.name }}
+                            </td>
+
+                            <td>
+                                {{ project.get_status_display }}
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+                            <td colspan="2">
+                                No projects
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    Upcoming Tasks
+                </h5>
+
+
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Due date</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for task in upcoming_tasks %}
+
+                        <tr>
+
+                            <td>
+                                {{ task.title }}
+                            </td>
+
+                            <td>
+                                {{ task.due_date }}
+                            </td>
+
+                        </tr>
+
+
+                    {% empty %}
+
+                        <tr>
+                            <td colspan="2">
+                                No upcoming tasks
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+{% endblock %}
