@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h3 class="card-title">
+            My Profile
+        </h3>
+
+
+        <hr>
+
+
+        <p>
+            <strong>Email:</strong>
+            {{ request.user.email }}
+        </p>
+
+
+        <p>
+            <strong>Name:</strong>
+            {{ request.user.first_name }}
+            {{ request.user.last_name }}
+        </p>
+
+
+        <p>
+            <strong>Role:</strong>
+            {{ request.user.role }}
+        </p>
+
+
+        <p>
+            <strong>Phone:</strong>
+            {{ request.user.phone }}
+        </p>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}
