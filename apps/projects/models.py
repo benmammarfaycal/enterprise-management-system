@@ -112,6 +112,9 @@ class ProjectAssignment(models.Model):
     )
 
     def clean(self):
+        if not self.project_id:
+            return
+
         if self.role == self.Role.PROJECT_MANAGER:
             exists = ProjectAssignment.objects.filter(
                 project=self.project,

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Project, ProjectAssignment
-from django.db.models import Count
+from apps.tasks.models import Task
 
 class ProjectAssignmentInline(admin.TabularInline):
     model = ProjectAssignment
@@ -15,6 +15,17 @@ class ProjectAssignmentInline(admin.TabularInline):
 
     readonly_fields = (
         "assigned_date",
+    )
+
+class TaskInline(admin.TabularInline):
+    model = Task
+    extra = 1
+    fields = (
+        "title",
+        "assigned_to",
+        "status",
+        "priority",
+        "due_date",
     )
 
 @admin.register(Project)
@@ -51,11 +62,13 @@ class ProjectAdmin(admin.ModelAdmin):
 
     inlines = [
         ProjectAssignmentInline,
+        TaskInline,
     ]
 
     ordering = (
         "name",
     )
+
 
     def employee_count(self, obj):
         return len(obj.assignments.all())
@@ -94,3 +107,4 @@ class ProjectAssignmentAdmin(admin.ModelAdmin):
         "employee",
         "project",
     )
+
