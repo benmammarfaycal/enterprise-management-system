@@ -7,6 +7,16 @@
     Tasks
 </h2>
 
+{% if user.role == "ADMIN" or user.role == "MANAGER" %}
+
+<a
+    href="{% url 'tasks:create' %}"
+    class="btn btn-success mb-3"
+>
+    New Task
+</a>
+
+{% endif %}
 
 <div class="card shadow">
 
@@ -25,6 +35,7 @@
                     <th>Status</th>
                     <th>Priority</th>
                     <th>Due Date</th>
+                    <th>Actions</th>
                 </tr>
 
             </thead>
@@ -132,6 +143,16 @@
 
                     <td>
                         {{ task.due_date }}
+                    </td>
+                    <td>
+
+                        <a
+                            href="{% url 'tasks:detail' task.id %}"
+                            class="btn btn-primary btn-sm"
+                        >
+                            Show
+                        </a>
+
                     </td>
 
 

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<h3>
+Delete task
+</h3>
+
+
+<p>
+Are you sure you want to delete:
+
+<strong>
+{{task.title}}
+</strong>
+
+?</p>
+
+
+
+<form method="post">
+
+{% csrf_token %}
+
+
+<button class="btn btn-danger">
+
+Delete
+
+</button>
+
+
+
+<a
+href="{% url 'tasks:detail' task.id %}"
+class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+
+</form>
+
+
+{% endblock %}

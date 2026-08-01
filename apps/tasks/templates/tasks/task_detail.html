@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>
+    {{ task.title }}
+</h2>
+
+<hr>
+
+<p>
+    <strong>Status:</strong>
+    {{ task.get_status_display }}
+</p>
+
+<p>
+    <strong>Priority:</strong>
+    {{ task.get_priority_display }}
+</p>
+
+<p>
+    <strong>Project:</strong>
+    {{ task.project }}
+</p>
+
+<p>
+    <strong>Assigned to:</strong>
+    {{ task.assigned_to }}
+</p>
+
+<p>
+    <strong>Start date:</strong>
+    {{ task.start_date }}
+</p>
+
+<p>
+    <strong>Due date:</strong>
+    {{ task.due_date }}
+</p>
+
+<p>
+    <strong>Description:</strong><br>
+    {{ task.description }}
+</p>
+{% if user.is_authenticated %}
+
+
+{% if user.role == "ADMIN" or user.role == "MANAGER" %}
+
+<a
+href="{% url 'tasks:update' task.id %}"
+class="btn btn-warning">
+
+Edit
+
+</a>
+
+{% if user.role == "EMPLOYEE" %}
+
+<form method="post"
+      action="{% url 'tasks:update_status' task.id %}">
+
+    {% csrf_token %}
+
+
+    {% if task.status == "TODO" %}
+
+        <button
+            name="status"
+            value="IN_PROGRESS"
+            class="btn btn-primary">
+            Start Task
+        </button>
+
+
+    {% elif task.status == "IN_PROGRESS" %}
+
+        <button
+            name="status"
+            value="COMPLETED"
+            class="btn btn-success">
+            Complete Task
+        </button>
+
+
+    {% endif %}
+
+
+</form>
+
+{% endif %}
+
+<a
+href="{% url 'tasks:delete' task.id %}"
+class="btn btn-danger">
+
+Delete
+
+</a>
+
+
+{% endif %}
+
+
+{% endif %}
+
+<a
+    href="{% url 'tasks:list' %}"
+    class="btn btn-secondary"
+>
+    Back
+</a>
+
+{% endblock %}
