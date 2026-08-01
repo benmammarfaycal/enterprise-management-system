@@ -1,98 +1,418 @@
 {% extends "base.html" %}
 
 
+
+{% block title %}
+{{ project.name }} | EMS
+{% endblock %}
+
+
+
+
+
 {% block content %}
 
-<td>
-    <a href="{% url 'projects:detail' project.id %}">
-        {{ project.name }}
+
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+    <div>
+
+        <h2 class="fw-bold">
+            {{ project.name }}
+        </h2>
+
+
+        <p class="text-muted mb-0">
+            Project details and team members
+        </p>
+
+
+    </div>
+
+
+
+
+    <a
+        href="{% url 'projects:list' %}"
+        class="btn btn-secondary"
+    >
+
+        Back to Projects
+
     </a>
-</td>
-
-<p>
-    Status:
-    {{ project.get_status_display }}
-</p>
 
 
-<p>
-    Manager:
-    {{ project.manager }}
-</p>
+</div>
 
 
-<p>
-    Description:
-    {{ project.description }}
-</p>
-
-{% if user.is_staff %}
-
-<a
-    href="{% url 'projects:update' project.id %}"
-    class="btn btn-warning"
->
-    Edit
-</a>
-
-{% endif %}
-
-{% if user.is_staff %}
-
-<a
-    href="{% url 'projects:delete' project.id %}"
-    class="btn btn-danger"
->
-    Delete
-</a>
-
-{% endif %}
-
-<a href="{% url 'projects:list' %}">
-    Back
-</a>
-
-<h4 class="mt-4">
-Team members
-</h4>
 
 
-<ul class="list-group">
 
 
-{% for assignment in project.assignments.all %}
 
-<li class="list-group-item">
-
-{{ assignment.employee }}
-
--
-{{ assignment.get_role_display }}
-
-</li>
+<div class="card shadow-sm border-0 mb-4">
 
 
-{% empty %}
 
-<li class="list-group-item">
-
-No employees assigned
-
-</li>
-
-{% endfor %}
+    <div class="card-body">
 
 
-</ul>
-{% if user.role == "ADMIN" or user.role == "MANAGER" %}
 
-<a
-href="{% url 'projects:assign' project.id %}"
-class="btn btn-primary mt-3">
+        <div class="row">
 
-Assign employee
 
-</a>
 
-{% endif %}
+            <div class="col-md-8">
+
+
+
+                <h5 class="fw-bold mb-3">
+                    Project Information
+                </h5>
+
+
+
+
+                <p>
+
+                    <strong>
+                        Status:
+                    </strong>
+
+
+                    {% if project.status == "COMPLETED" %}
+
+
+                        <span class="badge bg-success">
+                            Completed
+                        </span>
+
+
+
+                    {% elif project.status == "IN_PROGRESS" %}
+
+
+                        <span class="badge bg-primary">
+                            In Progress
+                        </span>
+
+
+
+
+                    {% elif project.status == "ON_HOLD" %}
+
+
+                        <span class="badge bg-warning text-dark">
+                            On Hold
+                        </span>
+
+
+
+
+                    {% else %}
+
+
+                        <span class="badge bg-secondary">
+                            {{ project.get_status_display }}
+                        </span>
+
+
+                    {% endif %}
+
+
+                </p>
+
+
+
+
+
+                <p>
+
+                    <strong>
+                        Manager:
+                    </strong>
+
+
+                    {% if project.manager %}
+
+                        {{ project.manager.first_name }}
+                        {{ project.manager.last_name }}
+
+                    {% else %}
+
+                        No manager assigned
+
+                    {% endif %}
+
+
+                </p>
+
+
+
+
+
+
+                <p>
+
+                    <strong>
+                        Description:
+                    </strong>
+
+                    <br>
+
+                    {% if project.description %}
+
+                        {{ project.description }}
+
+                    {% else %}
+
+                        <span class="text-muted">
+                            No description
+                        </span>
+
+                    {% endif %}
+
+
+                </p>
+
+
+
+
+            </div>
+
+
+
+
+
+
+            <div class="col-md-4 text-md-end">
+
+
+
+                {% if user.is_staff %}
+
+
+
+                    <a
+                        href="{% url 'projects:update' project.id %}"
+                        class="btn btn-warning mb-2"
+                    >
+
+                        Edit
+
+                    </a>
+
+
+
+
+
+                    <a
+                        href="{% url 'projects:delete' project.id %}"
+                        class="btn btn-danger mb-2"
+                    >
+
+                        Delete
+
+                    </a>
+
+
+
+                {% endif %}
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="card shadow-sm border-0">
+
+
+
+    <div class="card-header bg-white">
+
+
+
+        <div class="d-flex justify-content-between align-items-center">
+
+
+            <h5 class="mb-0 fw-bold">
+
+                Team Members
+
+            </h5>
+
+
+
+
+            {% if user.role == "ADMIN" or user.role == "MANAGER" %}
+
+
+                <a
+                    href="{% url 'projects:assign' project.id %}"
+                    class="btn btn-primary btn-sm"
+                >
+
+                    + Assign Employee
+
+                </a>
+
+
+
+            {% endif %}
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="card-body">
+
+
+
+
+
+        <div class="row g-3">
+
+
+
+
+
+        {% for assignment in project.assignments.all %}
+
+
+
+
+
+            <div class="col-md-4">
+
+
+
+                <div class="card border shadow-sm h-100">
+
+
+
+                    <div class="card-body">
+
+
+
+                        <h6 class="fw-bold">
+
+                            {{ assignment.employee.first_name }}
+                            {{ assignment.employee.last_name }}
+
+                        </h6>
+
+
+
+
+                        <p class="mb-1 text-muted">
+
+                            {{ assignment.get_role_display }}
+
+                        </p>
+
+
+
+
+                        <span class="badge bg-light text-dark">
+
+                            {{ assignment.hours_per_week }} h/week
+
+                        </span>
+
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+        {% empty %}
+
+
+
+
+
+            <div class="col-12">
+
+
+                <p class="text-center text-muted mb-0">
+
+                    No employees assigned
+
+                </p>
+
+
+            </div>
+
+
+
+
+        {% endfor %}
+
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
 {% endblock %}

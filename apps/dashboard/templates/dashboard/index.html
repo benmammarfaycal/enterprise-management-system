@@ -1,212 +1,498 @@
 {% extends "base.html" %}
 
 
+{% block title %}
+Dashboard | EMS
+{% endblock %}
+
+
+
 {% block content %}
 
 
-<h1 class="mb-4">
-    Enterprise Dashboard
-</h1>
-
-<div class="container mt-5">
-
-    <div class="row">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
 
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
+    <div>
 
-                    <h5 class="card-title">
-                        Employees
-                    </h5>
+        <h1 class="fw-bold">
+            Enterprise Dashboard
+        </h1>
 
-                    <h2>
-                        {{ employees_count }}
-                    </h2>
+        <p class="text-muted">
+            Overview of your enterprise activities
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="row g-4">
+
+
+
+    <div class="col-md-3">
+
+
+        <div class="card shadow-sm border-0 h-100">
+
+
+            <div class="card-body">
+
+
+                <div class="d-flex justify-content-between">
+
+
+                    <div>
+
+                        <h6 class="text-muted">
+                            Employees
+                        </h6>
+
+
+                        <h2 class="fw-bold">
+                            {{ employees_count }}
+                        </h2>
+
+                    </div>
+
+
+                    <div class="fs-2">
+                        👥
+                    </div>
+
 
                 </div>
+
+
             </div>
-        </div>
 
 
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        Projects
-                    </h5>
-
-                    <h2>
-                        {{ projects_count }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        Tasks
-                    </h5>
-
-                    <h2>
-                        {{ tasks_count }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        Completed
-                    </h5>
-
-                    <h2>
-                        {{ completed_tasks }}
-                    </h2>
-
-                </div>
-            </div>
         </div>
 
 
     </div>
-<div class="row mt-5">
 
-    <div class="col-md-6">
 
-        <div class="card shadow-sm">
+
+
+
+    <div class="col-md-3">
+
+
+        <div class="card shadow-sm border-0 h-100">
+
 
             <div class="card-body">
 
-                <h5 class="card-title">
+
+                <div class="d-flex justify-content-between">
+
+
+                    <div>
+
+                        <h6 class="text-muted">
+                            Projects
+                        </h6>
+
+
+                        <h2 class="fw-bold text-primary">
+                            {{ projects_count }}
+                        </h2>
+
+                    </div>
+
+
+                    <div class="fs-2">
+                        📁
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <div class="col-md-3">
+
+
+        <div class="card shadow-sm border-0 h-100">
+
+
+            <div class="card-body">
+
+
+                <div class="d-flex justify-content-between">
+
+
+                    <div>
+
+                        <h6 class="text-muted">
+                            Tasks
+                        </h6>
+
+
+                        <h2 class="fw-bold text-warning">
+                            {{ tasks_count }}
+                        </h2>
+
+                    </div>
+
+
+                    <div class="fs-2">
+                        ✅
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <div class="col-md-3">
+
+
+        <div class="card shadow-sm border-0 h-100">
+
+
+            <div class="card-body">
+
+
+                <div class="d-flex justify-content-between">
+
+
+                    <div>
+
+                        <h6 class="text-muted">
+                            Completed
+                        </h6>
+
+
+                        <h2 class="fw-bold text-success">
+                            {{ completed_tasks }}
+                        </h2>
+
+                    </div>
+
+
+                    <div class="fs-2">
+                        🎯
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="row g-4 mt-4">
+
+
+
+    <div class="col-lg-6">
+
+
+        <div class="card shadow-sm border-0">
+
+
+            <div class="card-header bg-white">
+
+
+                <h5 class="mb-0 fw-bold">
                     Recent Projects
                 </h5>
 
 
-                <table class="table">
-
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
+            </div>
 
 
-                    <tbody>
 
-                    {% for project in projects %}
+            <div class="card-body p-0">
 
-                        <tr>
 
-                            <td>
-                                {{ project.name }}
-                            </td>
+                <div class="table-responsive">
 
-                            <td>
-                                {{ project.get_status_display }}
-                            </td>
 
-                        </tr>
+                    <table class="table table-hover mb-0">
 
-                    {% empty %}
 
-                        <tr>
-                            <td colspan="2">
-                                No projects
-                            </td>
-                        </tr>
+                        <thead class="table-light">
 
-                    {% endfor %}
 
-                    </tbody>
+                            <tr>
 
-                </table>
+                                <th>
+                                    Name
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+
+                        </thead>
+
+
+
+                        <tbody>
+
+
+
+                        {% for project in projects %}
+
+
+                            <tr>
+
+
+                                <td>
+                                    {{ project.name }}
+                                </td>
+
+
+
+                                <td>
+
+                                    {% if project.status == "COMPLETED" %}
+
+                                        <span class="badge bg-success">
+                                            Completed
+                                        </span>
+
+
+                                    {% elif project.status == "IN_PROGRESS" %}
+
+                                        <span class="badge bg-primary">
+                                            In Progress
+                                        </span>
+
+
+                                    {% else %}
+
+                                        <span class="badge bg-secondary">
+                                            {{ project.get_status_display }}
+                                        </span>
+
+
+                                    {% endif %}
+
+
+                                </td>
+
+
+                            </tr>
+
+
+
+                        {% empty %}
+
+
+                            <tr>
+
+                                <td colspan="2" class="text-center text-muted">
+
+                                    No projects
+
+                                </td>
+
+                            </tr>
+
+
+                        {% endfor %}
+
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
 
             </div>
 
+
         </div>
+
 
     </div>
 
 
 
-    <div class="col-md-6">
 
-        <div class="card shadow-sm">
 
-            <div class="card-body">
 
-                <h5 class="card-title">
+
+
+
+    <div class="col-lg-6">
+
+
+        <div class="card shadow-sm border-0">
+
+
+            <div class="card-header bg-white">
+
+
+                <h5 class="mb-0 fw-bold">
                     Upcoming Tasks
                 </h5>
 
 
-                <table class="table">
-
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Due date</th>
-                        </tr>
-                    </thead>
+            </div>
 
 
-                    <tbody>
 
-                    {% for task in upcoming_tasks %}
-
-                        <tr>
-
-                            <td>
-                                {{ task.title }}
-                            </td>
-
-                            <td>
-                                {{ task.due_date }}
-                            </td>
-
-                        </tr>
+            <div class="card-body p-0">
 
 
-                    {% empty %}
-
-                        <tr>
-                            <td colspan="2">
-                                No upcoming tasks
-                            </td>
-                        </tr>
-
-                    {% endfor %}
+                <div class="table-responsive">
 
 
-                    </tbody>
+                    <table class="table table-hover mb-0">
 
-                </table>
+
+                        <thead class="table-light">
+
+
+                            <tr>
+
+                                <th>
+                                    Task
+                                </th>
+
+
+                                <th>
+                                    Due date
+                                </th>
+
+
+                            </tr>
+
+
+                        </thead>
+
+
+
+                        <tbody>
+
+
+
+                        {% for task in upcoming_tasks %}
+
+
+                            <tr>
+
+
+                                <td>
+                                    {{ task.title }}
+                                </td>
+
+
+
+                                <td>
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        {{ task.due_date }}
+
+                                    </span>
+
+
+                                </td>
+
+
+                            </tr>
+
+
+
+                        {% empty %}
+
+
+                            <tr>
+
+                                <td colspan="2" class="text-center text-muted">
+
+                                    No upcoming tasks
+
+                                </td>
+
+                            </tr>
+
+
+                        {% endfor %}
+
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
 
 
             </div>
 
+
         </div>
+
 
     </div>
 
 
-</div>
 
 </div>
+
 
 
 {% endblock %}
